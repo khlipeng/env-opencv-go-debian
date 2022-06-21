@@ -5,14 +5,14 @@ PLATFORM := linux/amd64,linux/arm64
 opencv.base-amd64:
 	docker buildx build --push --platform=linux/amd64	\
 		--file=opencv.Dockerfile \
-		--tag=ghcr.io/khlipeng/opencv-debian:$(OPENCV_VERSION)	\
+		--tag=ghcr.io/khlipeng/opencv-debian:$(OPENCV_VERSION)-amd64	\
 		--build-arg=OPENCV_VERSION=$(OPENCV_VERSION)	\
 		.
 
 opencv.base-arm64:
 	docker buildx build --push --platform=linux/arm64	\
 		--file=opencv.Dockerfile \
-		--tag=ghcr.io/khlipeng/opencv-debian:$(OPENCV_VERSION)	\
+		--tag=ghcr.io/khlipeng/opencv-debian:$(OPENCV_VERSION)-arm64	\
 		--build-arg=OPENCV_VERSION=$(OPENCV_VERSION)	\
 		.
 
@@ -24,3 +24,13 @@ go:
 		--build-arg=GOLANG_VERSION=$(GOLANG_VERSION)	\
 		--build-arg=OPENCV_VERSION=$(OPENCV_VERSION)	\
 		.
+
+opencv.runtime:
+	docker buildx build --push \
+		--platform=$(PLATFORM)	\
+		--file=runtime.Dockerfile  \
+		--tag=ghcr.io/khlipeng/opencv-debian:runtime-$(OPENCV_VERSION) \
+		--build-arg=OPENCV_VERSION=$(OPENCV_VERSION)	\
+		--build-arg=GOLANG_VERSION=$(GOLANG_VERSION)	\
+		.
+
