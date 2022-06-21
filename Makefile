@@ -20,7 +20,7 @@ go:
 	docker buildx build --push --progress plain \
 		--platform=$(PLATFORM) \
 		--file=go.Dockerfile \
-		--tag=ghcr.io/khlipeng/go-debian:$(OPENCV_VERSION)-$(GOLANG_VERSION) \
+		--tag=ghcr.io/khlipeng/opencv-golang-debian:$(OPENCV_VERSION)-$(GOLANG_VERSION) \
 		--build-arg=GOLANG_VERSION=$(GOLANG_VERSION)	\
 		--build-arg=OPENCV_VERSION=$(OPENCV_VERSION)	\
 		.
