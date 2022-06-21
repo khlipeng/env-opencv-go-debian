@@ -1,12 +1,12 @@
 ARG OPENCV_VERSION
 ARG GOLANG_VERSION
 
-ARG TARGETARCH
-
-FROM khlipeng/opencv-debian:$OPENCV_VERSION-$TARGETARCH
+FROM ghcr.io/khlipeng/opencv-debian:$OPENCV_VERSION-$TARGETARCH
 
 LABEL maintainer="khlipeng"
 LABEL DATE="2022-06-20"
+
+ARG TARGETARCH
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
             git software-properties-common && \
