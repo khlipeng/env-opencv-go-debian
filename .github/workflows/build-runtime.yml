@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/build-runtime.yml'
-      - 'runrime.Dockerfile'
+      - 'runtime.Dockerfile'
 
 jobs:
   build-runtime:
