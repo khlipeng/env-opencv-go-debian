@@ -4,8 +4,6 @@ ARG OPENCV_VERSION
 FROM ghcr.io/khlipeng/opencv-debian:$OPENCV_VERSION-$TARGETARCH as opencv
 FROM debian:buster-slim
 
-ARG OPENCV_VERSION
-ENV OPENCV_VERSION=$OPENCV_VERSION
 ENV VERSION="2022-16-20"
 
 RUN sed -i '/security/d' /etc/apt/sources.list 
@@ -14,32 +12,19 @@ RUN apt-get update && apt-get install -y    \
         bash \
     && rm -rf /var/lib/apt/lists/*
 
-## opencv
+
 RUN apt-get update && apt-get install -y    \
         ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-ENV OPENCV_VERSION $OPENCV_VERSION
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-            ca-certificates \
-            pkg-config \
-            libcurl4-openssl-dev \
-            libssl-dev \
-            libavcodec-dev \
-            libavformat-dev \
-            libtbb2 \
-            libtbb-dev \
-            libjpeg-dev \
-            libpng-dev \
-            libtiff-dev \
-            libdc1394-22-dev \
-            libdc1394-22 \
-            libgtk2.0 \
-            libswscale-dev \
-            libpq-dev \
-            libavcodec58    \
-    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+            pkg-config unzip libgtk2.0-dev \
+            curl ca-certificates libcurl4-openssl-dev libssl-dev \
+            libavcodec-dev libavformat-dev libswscale-dev libtbb2 libtbb-dev \
+            libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev && \
+            rm -rf /var/lib/apt/lists/*
+
 
 COPY --from=opencv /usr/local/include/opencv4 /usr/local/include/opencv4
 COPY --from=opencv /usr/local/lib /usr/local/lib
