@@ -1,7 +1,7 @@
 ARG OPENCV_VERSION
 ARG GOLANG_VERSION
 
-FROM ghcr.io/khlipeng/opencv-debian:$OPENCV_VERSION-$TARGETARCH
+FROM ghcr.io/khlipeng/opencv-debian:$OPENCV_VERSION
 
 LABEL maintainer="khlipeng"
 LABEL DATE="2022-06-20"
