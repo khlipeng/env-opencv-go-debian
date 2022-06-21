@@ -7,6 +7,8 @@ LABEL maintainer="khlipeng"
 LABEL DATE="2022-06-20"
 
 ARG TARGETARCH
+ENV GOLANG_VERSION $GOLANG_VERSION
+
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
             git software-properties-common && \
