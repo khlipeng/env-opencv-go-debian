@@ -1,6 +1,5 @@
 ARG GOLANG_VERSION
 ARG OPENCV_VERSION
-ARG TARGETARCH
 
 FROM ghcr.io/khlipeng/opencv-debian:$OPENCV_VERSION-$TARGETARCH as opencv
 FROM debian:buster-slim
