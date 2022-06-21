@@ -2,21 +2,14 @@ ARG GOLANG_VERSION
 ARG OPENCV_VERSION
 
 FROM ghcr.io/khlipeng/opencv-debian:$OPENCV_VERSION-$TARGETARCH as opencv
-FROM debian:buster-slim
 
-ENV VERSION="2022-16-20"
+FROM debian:buster
 
-RUN sed -i '/security/d' /etc/apt/sources.list 
-RUN apt-get update && apt-get install -y    \
-        curl \
-        bash \
+LABEL maintainer="khlipeng"
+
+RUN apt-get update \
+    && apt-get install -y ffmpeg \
     && rm -rf /var/lib/apt/lists/*
-
-
-RUN apt-get update && apt-get install -y    \
-        ffmpeg \
-    && rm -rf /var/lib/apt/lists/*
-
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
             pkg-config unzip libgtk2.0-dev \
@@ -24,7 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
             libavcodec-dev libavformat-dev libswscale-dev libtbb2 libtbb-dev \
             libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev && \
             rm -rf /var/lib/apt/lists/*
-
 
 COPY --from=opencv /usr/local/include/opencv4 /usr/local/include/opencv4
 COPY --from=opencv /usr/local/lib /usr/local/lib
